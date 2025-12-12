@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LU07</title>
+    <style>
+        /* CSS Styling - SEO & Performance Theme (Consistent Purple/Yellow Theme) */
+        :root {
+            --primary-color: #7c3aed; /* Deep Purple for focus */
+            --secondary-color: #fcd34d; /* Amber/Yellow for insights */
+            --text-color: #374151;
+            --bg-color: #f3f4f6; /* Light Gray */
+            --card-bg: #fff;
+            --radius: 12px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            margin: 0 0 5px 0;
+            font-size: 2.5em;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 8px;
+            margin-top: 30px;
+            font-size: 1.8em;
+        }
+
+        /* Navigation Styling (Tabs) */
+        #lesson-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px auto;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .nav-btn {
+            background: transparent;
+            color: var(--text-color);
+            border: none;
+            padding: 15px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: color 0.3s, border-bottom 0.3s;
+            font-weight: 600;
+            border-radius: 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-btn.active, .nav-btn:hover {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        /* Content Section Styling */
+        .content-section {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+            display: none; 
+        }
+
+        .content-section.active {
+            display: block; 
+        }
+
+        /* Highlight Box - Tips */
+        .highlight-box {
+            background: #ede9fe; /* Light purple */
+            border-left: 5px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        
+        /* Alert Box - Important Focus */
+        .alert-box {
+            background: #fffbeb; /* Light yellow */
+            border-left: 5px solid var(--secondary-color);
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            main {
+                padding: 0 10px;
+            }
+            #lesson-nav {
+                flex-direction: column;
+            }
+            .nav-btn {
+                width: 100%;
+                margin: 5px 0;
+                border-bottom: none !important;
+            }
+            .nav-btn.active {
+                border: 1px solid var(--primary-color);
+                background-color: #ede9fe;
+                color: var(--primary-color);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LU07:SEO & Website Performance Optimization</h1>
+       
+    </header>
+
+    <main>
+        <nav id="lesson-nav">
+            <button class="nav-btn active" data-target="seo_basics">1. Understanding SEO Settings</button>
+            <button class="nav-btn" data-target="meta_optimization">2. Customizing Tags and Text</button>
+            <button class="nav-btn" data-target="speed_mobile">3. Speed and Responsiveness</button>
+        </nav>
+
+        <!-- Section 1: Understanding basic SEO settings in both platforms -->
+        <section id="seo_basics" class="content-section active">
+            <h2>⚙️ 1. Understanding Basic SEO Settings</h2>
+            <p>Every platform provides core tools to help search engines like Google understand your site.</p>
+
+            <h3>The SEO Wizard/Checklist:</h3>
+            <div class="highlight-box">
+                <p>Both Wix and WordPress often include a built-in SEO tool (e.g., Wix SEO Wiz or Yoast/RankMath plugin for WordPress). </p>
+                <ul>
+                    <li><strong>Goal:</strong> These tools guide you through essential setup steps, such as connecting to Google Search Console and confirming site ownership.</li>
+                    <li><strong>Focus:</strong> Getting the basics right—defining your primary business, target location, and main keywords.</li>
+                </ul>
+            </div>
+            
+            <h3>Sitemaps:</h3>
+            <div class="highlight-box" style="border-left-color: #fcd34d; background: #fffbeb;">
+                <p>A Sitemap (usually an XML file) is a list of all pages on your site that you want search engines to crawl.</p>
+                <ul>
+                    <li><strong>Wix:</strong> Automatically generates and updates your sitemap.</li>
+                    <li><strong>WordPress:</strong> SEO plugins (like Yoast) automatically generate and submit your sitemap to Google via Search Console.</li>
+                    <li><strong>Key Takeaway:</strong> Ensure your main pages are included and submitted.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 2: Customizing URLs, meta tags, and alt text -->
+        <section id="meta_optimization" class="content-section">
+            <h2>📝 2. Customizing URLs, Meta Tags, and Alt Text</h2>
+            <p>These elements are what search engines and users see first in search results.</p>
+
+            <h3>The Snippet: Meta Title and Description</h3>
+            <div class="highlight-box">
+                <p>The **Meta Title** and **Meta Description** form the "snippet" displayed in Google search results.</p>
+                <ul>
+                    <li><strong>Meta Title:</strong> Should be unique, include the page's main keyword, and be under 60 characters.</li>
+                    <li><strong>Meta Description:</strong> Should be a compelling, keyword-rich summary (under 160 characters) that encourages the user to click.</li>
+                    <li><strong>Location:</strong> These are set in the 'SEO' section of the individual Page Settings.</li>
+                </ul>
+            </div>
+
+            <h3>URLs and Alt Text:</h3>
+            <div class="alert-box">
+                <ul>
+                    <li><strong>Custom URLs (Slugs):</strong> Ensure your URL is clean, short, and keyword-rich (e.g., <code>/best-coffee-beans</code> instead of <code>/page-id-23847</code>).</li>
+                    <li><strong>Alt Text (Image Optimization):</strong> This text describes the image content. It improves accessibility and helps search engines index your images. Always include relevant keywords here.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 3: Optimizing site speed and mobile responsiveness -->
+        <section id="speed_mobile" class="content-section">
+            <h2>⚡ 3. Optimizing Site Speed and Mobile Responsiveness</h2>
+            <p>Site speed and mobile experience are now critical ranking factors (Core Web Vitals).</p>
+
+            <h3>Boosting Site Speed:</h3>
+            <ol>
+                <li><strong>Compress Images:</strong> Never upload huge, unoptimized files. Use tools to compress images (JPEG, WebP) before uploading.</li>
+                <li><strong>Lazy Loading:</strong> Ensure images and videos "lazy load," meaning they only load when the user scrolls down to view them, not immediately upon page load. (Most modern builders handle this automatically).</li>
+                <li><strong>Minimize Apps/Plugins:</strong> Every app/plugin adds code. Only install and keep the tools you actively use. Too many can severely slow down your site.</li>
+            </ol>
+            
+            <div class="alert-box">
+                <strong>Test Your Speed:</strong> Regularly check your site's performance using Google's <a href="https://pagespeed.web.dev/" target="_blank" style="color:var(--primary-color);">PageSpeed Insights</a> tool. Aim for green scores for both mobile and desktop.
+            </div>
+
+            <h3>Mobile Responsiveness:</h3>
+            <p>Always review and manually adjust your site's layout using the editor's dedicated mobile preview mode.</p>
+            <ul>
+                <li>Ensure text is readable (no tiny fonts).</li>
+                <li>Buttons are large enough to tap (good touch targets).</li>
+                <li>Elements are not overlapping or hidden off-screen.</li>
+            </ul>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Section Navigation Logic (Tabs) ---
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            const activateSection = (targetId) => {
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                contentSections.forEach(section => section.classList.remove('active'));
+
+                const targetButton = document.querySelector(`.nav-btn[data-target="${targetId}"]`);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetButton && targetSection) {
+                    targetButton.classList.add('active');
+                    targetSection.classList.add('active');
+                    // Scroll smoothly to the start of the section content
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            };
+
+            // Set up click listeners for main navigation
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    activateSection(button.getAttribute('data-target'));
+                });
+            });
+
+            // Ensure the first section is active on load
+            activateSection('seo_basics');
+        });
+    </script>
+</body>
+</html>

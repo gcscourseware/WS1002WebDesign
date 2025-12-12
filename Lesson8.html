@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LU08</title>
+    <style>
+        /* CSS Styling - E-commerce Theme (Trust Blue / Success Green) */
+        :root {
+            --primary-color: #2563eb; /* Royal Blue for Trust */
+            --secondary-color: #10b981; /* Emerald Green for Sales/Money */
+            --text-color: #1f2937;
+            --bg-color: #f0fdfa; /* Very light cool background */
+            --card-bg: #fff;
+            --radius: 12px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #1e40af);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 8px;
+            margin-top: 0;
+            font-size: 1.8em;
+            display: inline-block;
+        }
+
+        /* Navigation Styling (Tabs) */
+        #lesson-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px auto;
+            background: white;
+            border-radius: 50px;
+            padding: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            max-width: fit-content;
+        }
+
+        .nav-btn {
+            background: transparent;
+            color: var(--text-color);
+            border: none;
+            padding: 12px 25px;
+            margin: 0 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            border-radius: 40px;
+        }
+
+        .nav-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+        }
+
+        .nav-btn:hover:not(.active) {
+            background-color: #e0f2fe;
+            color: var(--primary-color);
+        }
+
+        /* Content Section Styling */
+        .content-section {
+            background: var(--card-bg);
+            padding: 35px;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 25px;
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .content-section.active {
+            display: block; 
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Comparison Cards (Section 1) */
+        .comparison-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .compare-card {
+            flex: 1;
+            padding: 20px;
+            border-radius: var(--radius);
+            border: 1px solid #e5e7eb;
+        }
+
+        .wix-card { background: #eff6ff; border-top: 5px solid var(--primary-color); }
+        .woo-card { background: #f0fdf4; border-top: 5px solid var(--secondary-color); }
+
+        /* Product Interactive Demo (Section 2) */
+        .product-demo-wrapper {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: var(--radius);
+            border: 1px solid #e2e8f0;
+        }
+
+        .product-form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .product-form label { font-weight: bold; font-size: 0.9em; color: #64748b; }
+        .product-form input, .product-form textarea {
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+        }
+
+        .product-preview {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .preview-card {
+            background: white;
+            width: 220px;
+            border-radius: 8px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .preview-image {
+            height: 150px;
+            background-color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 0.8em;
+        }
+
+        .preview-details { padding: 15px; }
+        .preview-title { font-weight: bold; margin-bottom: 5px; color: #1e293b; }
+        .preview-price { color: var(--secondary-color); font-weight: bold; font-size: 1.2em; }
+
+        /* Accordion Styling (Section 3) */
+        .toggle-container {
+            border: 1px solid #e0e0e0;
+            border-radius: var(--radius);
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .toggle-header {
+            width: 100%;
+            text-align: left;
+            background: #f8fafc;
+            color: var(--text-color);
+            border: none;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 18px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .toggle-header:hover { background: #f1f5f9; }
+        .toggle-header.active { background: var(--primary-color); color: white; }
+        
+        .toggle-body {
+            background: #fff;
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+        }
+
+        .toggle-body.active { padding: 18px; }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            #lesson-nav { flex-direction: column; border-radius: 12px; max-width: 100%; }
+            .nav-btn { width: 100%; margin: 2px 0; text-align: center; }
+            .comparison-container { flex-direction: column; }
+            .product-demo-wrapper { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LU08:Setting Up E-commerce & Business Features</h1>
+    </header>
+
+    <main>
+        <nav id="lesson-nav">
+            <button class="nav-btn active" data-target="intro">1. Wix Stores vs. WooCommerce</button>
+            <button class="nav-btn" data-target="products">2. Products & Payments</button>
+            <button class="nav-btn" data-target="orders">3. Managing Orders</button>
+        </nav>
+
+        <!-- Section 1: Intro to Stores -->
+        <section id="intro" class="content-section active">
+            <h2>🏬 1. Introduction to Wix Stores & WooCommerce</h2>
+            <p>Choosing your e-commerce engine is a foundational business decision. Here is how the two giants compare.</p>
+            
+            <div class="comparison-container">
+                <div class="compare-card wix-card">
+                    <h3>Wix Stores (Built-in)</h3>
+                    <p><strong>Type:</strong> All-in-one Solution (SaaS)</p>
+                    <ul style="padding-left: 20px;">
+                        <li><strong>Setup:</strong> Extremely fast. Just click "Add Store".</li>
+                        <li><strong>Hosting:</strong> Included in your monthly fee.</li>
+                        <li><strong>Maintenance:</strong> Wix handles security and updates.</li>
+                        <li><strong>Best For:</strong> Small to medium businesses wanting simplicity.</li>
+                    </ul>
+                </div>
+                <div class="compare-card woo-card">
+                    <h3>WooCommerce (WordPress)</h3>
+                    <p><strong>Type:</strong> Open Source Plugin</p>
+                    <ul style="padding-left: 20px;">
+                        <li><strong>Setup:</strong> Requires installation and configuration.</li>
+                        <li><strong>Hosting:</strong> You must purchase your own hosting.</li>
+                        <li><strong>Maintenance:</strong> You manage updates and security.</li>
+                        <li><strong>Best For:</strong> Large stores needing unlimited customization.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Adding Products & Payments -->
+        <section id="products" class="content-section">
+            <h2>📦 2. Adding Products & Setting Up Payments</h2>
+            <p>A store is nothing without inventory and a way to get paid. Let's simulate the product creation process.</p>
+
+            <h3>Interactive Product Creator:</h3>
+            <p>Type in the form below to see how product data translates to a store card.</p>
+
+            <div class="product-demo-wrapper">
+                <div class="product-form">
+                    <div>
+                        <label>Product Name</label>
+                        <input type="text" id="inp-name" placeholder="e.g., Premium Coffee Beans">
+                    </div>
+                    <div>
+                        <label>Price ($)</label>
+                        <input type="number" id="inp-price" placeholder="25.00">
+                    </div>
+                    <div>
+                        <label>Product Type</label>
+                        <select style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+                            <option>Physical Item</option>
+                            <option>Digital Download</option>
+                            <option>Service</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="product-preview">
+                    <div class="preview-card">
+                        <div class="preview-image">Product Image</div>
+                        <div class="preview-details">
+                            <div class="preview-title" id="out-name">Product Name</div>
+                            <div class="preview-price" id="out-price">$0.00</div>
+                            <button style="background:var(--primary-color); color:white; border:none; padding:5px 15px; border-radius:4px; margin-top:10px; cursor:default;">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Setting Up Payments:</h3>
+            <div class="toggle-container">
+                <button class="toggle-header active" data-toggle="payment-gateway">Payment Gateways <span class="icon">▼</span></button>
+                <div class="toggle-body active" id="payment-gateway">
+                    <p>To accept money, you need to connect a processor found in <strong>Settings > Accept Payments</strong>.</p>
+                    <ul>
+                        <li><strong>Wix Payments / Stripe:</strong> Best for credit card processing directly on site.</li>
+                        <li><strong>PayPal:</strong> Trusted by users, but often redirects them off-site to pay.</li>
+                        <li><strong>Manual Payments:</strong> Cash on Delivery (COD) or Bank Transfer.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Managing Orders -->
+        <section id="orders" class="content-section">
+            <h2>🚚 3. Managing Orders & Customer Interactions</h2>
+            <p>The work isn't done when the sale is made. Fulfillment is key to customer retention.</p>
+
+            <div class="toggle-container">
+                <button class="toggle-header active" data-toggle="order-flow">The Order Lifecycle <span class="icon">▼</span></button>
+                <div class="toggle-body active" id="order-flow">
+                    <ol>
+                        <li><strong>Order Received:</strong> Customer pays, you get a notification. Inventory is deducted automatically.</li>
+                        <li><strong>Fulfillment:</strong> You pack the item. In the dashboard, you mark the order as "Fulfilled" and enter the Tracking Number.</li>
+                        <li><strong>Shipping Notification:</strong> The platform automatically emails the customer their tracking info.</li>
+                        <li><strong>Delivery:</strong> The carrier confirms drop-off.</li>
+                    </ol>
+                </div>
+
+                <button class="toggle-header" data-toggle="automations">Automated Customer Interactions <span class="icon">▼</span></button>
+                <div class="toggle-body" id="automations">
+                    <p>Save time by setting up automations in your dashboard:</p>
+                    <ul>
+                        <li><strong>Abandoned Cart Recovery:</strong> Emails a customer if they leave items in their cart without buying.</li>
+                        <li><strong>Thank You Email:</strong> Sent immediately after purchase. Great place to offer a discount on their <em>next</em> order.</li>
+                        <li><strong>Review Request:</strong> Sent 7 days after fulfillment to ask for a product review.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Navigation Logic ---
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    contentSections.forEach(section => section.classList.remove('active'));
+
+                    // Add active class to clicked
+                    button.classList.add('active');
+                    const targetId = button.getAttribute('data-target');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+
+            // --- Product Preview Logic ---
+            const nameInput = document.getElementById('inp-name');
+            const priceInput = document.getElementById('inp-price');
+            const nameOutput = document.getElementById('out-name');
+            const priceOutput = document.getElementById('out-price');
+
+            const updatePreview = () => {
+                nameOutput.textContent = nameInput.value || "Product Name";
+                priceOutput.textContent = "$" + (parseFloat(priceInput.value) || 0).toFixed(2);
+            };
+
+            nameInput.addEventListener('input', updatePreview);
+            priceInput.addEventListener('input', updatePreview);
+
+            // --- Accordion Logic ---
+            const toggleHeaders = document.querySelectorAll('.toggle-header');
+
+            toggleHeaders.forEach(header => {
+                // Initialize open states
+                const bodyId = header.getAttribute('data-toggle');
+                const targetBody = document.getElementById(bodyId);
+                
+                if (header.classList.contains('active')) {
+                    targetBody.style.maxHeight = targetBody.scrollHeight + "px";
+                    targetBody.classList.add('active');
+                }
+
+                header.addEventListener('click', () => {
+                    const isCurrentlyActive = header.classList.contains('active');
+                    const container = header.closest('.toggle-container');
+
+                    // Close all siblings
+                    container.querySelectorAll('.toggle-header').forEach(h => h.classList.remove('active'));
+                    container.querySelectorAll('.toggle-body').forEach(b => {
+                        b.classList.remove('active');
+                        b.style.maxHeight = null;
+                    });
+
+                    // Toggle clicked
+                    if (!isCurrentlyActive) {
+                        header.classList.add('active');
+                        targetBody.classList.add('active');
+                        targetBody.style.maxHeight = targetBody.scrollHeight + "px";
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
