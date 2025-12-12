@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LU02</title>
+    <style>
+        /* CSS Styling - Design and Planning Theme (Modern, Clean Purple/Yellow) */
+        :root {
+            --primary-color: #7c3aed; /* Deep Purple for focus */
+            --secondary-color: #fcd34d; /* Amber/Yellow for insights */
+            --text-color: #374151;
+            --bg-color: #f3f4f6; /* Light Gray */
+            --card-bg: #fff;
+            --radius: 12px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            margin: 0 0 5px 0;
+            font-size: 2.5em;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 8px;
+            margin-top: 30px;
+            font-size: 1.8em;
+        }
+
+        /* Navigation Styling */
+        #lesson-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px auto;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .nav-btn {
+            background: transparent;
+            color: var(--text-color);
+            border: none;
+            padding: 15px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: color 0.3s, border-bottom 0.3s;
+            font-weight: 600;
+            border-radius: 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-btn.active, .nav-btn:hover {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        /* Content Section Styling */
+        .content-section {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+            display: none; 
+        }
+
+        .content-section.active {
+            display: block; 
+        }
+
+        /* Dashboard Features Tabs */
+        .feature-tabs-container {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .feature-tabs-menu {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: #f7f7f7;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .feature-tab-btn {
+            flex-grow: 1;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            font-weight: 600;
+            color: var(--text-color);
+            transition: background 0.3s, color 0.3s;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .feature-tab-btn:last-child {
+            border-right: none;
+        }
+
+        .feature-tab-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .feature-tab-content {
+            padding: 20px;
+            display: none;
+            line-height: 1.5;
+        }
+
+        .feature-tab-content.active {
+            display: block;
+        }
+        
+        /* Highlight Box */
+        .highlight-box {
+            background: #ede9fe; /* Light purple */
+            border-left: 5px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            main {
+                padding: 0 10px;
+            }
+            #lesson-nav {
+                flex-direction: column;
+            }
+            .nav-btn {
+                width: 100%;
+                margin: 5px 0;
+                border-bottom: none !important;
+            }
+            .nav-btn.active {
+                border: 1px solid var(--primary-color);
+                background-color: #ede9fe;
+                color: var(--primary-color);
+            }
+            .feature-tabs-menu {
+                flex-direction: column;
+            }
+            .feature-tab-btn {
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LU02:Getting Started with Website Builder</h1>
+    </header>
+
+    <main>
+        <nav id="lesson-nav">
+            <button class="nav-btn active" data-target="platform">1. Choosing Your Platform</button>
+            <button class="nav-btn" data-target="setup">2. Sign Up & Initial Setup</button>
+            <button class="nav-btn" data-target="dashboard">3. Dashboard & Features</button>
+        </nav>
+
+        <!-- Section 1: Choosing the right platform: Wix vs. WordPress -->
+        <section id="platform" class="content-section active">
+            <h2>🧱 1. Choosing Your Platform: Wix vs. WordPress</h2>
+            <p>The first decision impacts your flexibility, learning curve, and long-term costs. Focus on your project's needs first.</p>
+
+            <div class="highlight-box">
+                <strong>Wix: The Visual Powerhouse (SaaS)</strong><br>
+                <ul>
+                    <li><strong>Best For:</strong> Beginners, portfolios, local businesses, fast deployment.</li>
+                    <li><strong>Key Feature:</strong> Drag-and-drop editor; what you see is what you get (WYSIWYG).</li>
+                    <li><strong>Trade-off:</strong> High vendor lock-in; less control over the underlying code.</li>
+                </ul>
+            </div>
+            
+            <div class="highlight-box" style="border-left-color: #fcd34d; background: #fffbeb;">
+                <strong>WordPress: The Flexible Standard (CMS)</strong><br>
+                <ul>
+                    <li><strong>Best For:</strong> Large blogs, e-commerce, complex or custom-coded projects, future scaling.</li>
+                    <li><strong>Key Feature:</strong> Unmatched plugins (e.g., WooCommerce) and themes.</li>
+                    <li><strong>Trade-off:</strong> Steeper learning curve; requires external hosting and self-management of security.</li>
+                </ul>
+            </div>
+
+            <h3>Decision Points: Ask Yourself...</h3>
+            <ul>
+                <li><strong>How technical am I?</strong> (Beginners should lean toward Wix/Squarespace.)</li>
+                <li><strong>Do I need to sell online?</strong> (Both work, but WordPress/WooCommerce is more robust for huge inventories.)</li>
+                <li><strong>Is my site purely informational, or highly complex?</strong> (Simplicity favors Wix; complexity favors WordPress.)</li>
+            </ul>
+        </section>
+
+        <!-- Section 2: Signing up and setting up a website -->
+        <section id="setup" class="content-section">
+            <h2>🔑 2. Signing Up and Initial Setup Steps</h2>
+            <p>Regardless of the platform, the initial setup follows a similar sequence. We'll outline the common first five steps.</p>
+
+            <div class="highlight-box">
+                <strong>Step 1: Account Creation & Business Type</strong><br>
+                <p>Sign up with an email. Most builders will ask guiding questions (e.g., "What kind of website are you making?"). Answer accurately—this determines the features and templates suggested.</p>
+            </div>
+
+            <div class="highlight-box">
+                <strong>Step 2: Template Selection or AI Creation</strong><br>
+                <p>Choose a template (theme) that closely matches your industry and aesthetic. Templates are easier to edit than to build from scratch. Note: Wix offers an AI builder that can generate a starting site based on your answers.</p>
+            </div>
+
+            <div class="highlight-box">
+                <strong>Step 3: Initial Branding & Content</strong><br>
+                <p>Enter your business name, upload a logo, and populate the main homepage sections with preliminary text. This makes the template feel real.</p>
+            </div>
+            
+            <div class="highlight-box">
+                <strong>Step 4: Trial or Paid Plan Activation</strong><br>
+                <p>To connect a custom domain (e.g., `mybusiness.com`) and remove platform ads, you must upgrade to a paid plan. Always start with a trial if available.</p>
+            </div>
+
+            <div class="highlight-box">
+                <strong>Step 5: Domain Connection</strong><br>
+                <p>If you already own a domain, you will connect it here. If not, you can usually register a new one directly through the builder (often included free for the first year with a paid plan).</p>
+            </div>
+        </section>
+
+        <!-- Section 3: Exploring the dashboard and key features -->
+        <section id="dashboard" class="content-section">
+            <h2>🧭 3. Exploring the Dashboard and Key Features</h2>
+            <p>The dashboard is your mission control. It organizes all the tools you need outside of the visual editor.</p>
+
+            <div class="feature-tabs-container">
+                <div class="feature-tabs-menu">
+                    <button class="feature-tab-btn active" data-tab="editor-mode">Editor</button>
+                    <button class="feature-tab-btn" data-tab="settings-mode">Settings</button>
+                    <button class="feature-tab-btn" data-tab="app-mode">Apps/Plugins</button>
+                    <button class="feature-tab-btn" data-tab="seo-mode">SEO Tools</button>
+                </div>
+
+                <div id="editor-mode" class="feature-tab-content active">
+                    <h3>The Visual Editor (Design & Layout)</h3>
+                    <p>This is where the magic happens. Here you drag elements (text, images, galleries, buttons) directly onto the page. Key actions include:</p>
+                    <ul>
+                        <li><strong>Adding Elements:</strong> Inserting new blocks or widgets.</li>
+                        <li><strong>Managing Pages:</strong> Creating, deleting, or reordering pages in your site map.</li>
+                        <li><strong>Switching Views:</strong> Toggling between desktop and mobile editing views to ensure responsiveness.</li>
+                    </ul>
+                </div>
+
+                <div id="settings-mode" class="feature-tab-content">
+                    <h3>Site Settings (Configuration)</h3>
+                    <p>The backbone of your site's functionality. Use this area for:</p>
+                    <ul>
+                        <li><strong>General Info:</strong> Site title, favicon, time zone.</li>
+                        <li><strong>Billing & Plans:</strong> Managing your subscription and payment methods.</li>
+                        <li><strong>Domain Management:</strong> Ensuring your custom domain is connected correctly.</li>
+                        <li><strong>Social Links:</strong> Connecting your Facebook, Instagram, etc.</li>
+                    </ul>
+                </div>
+
+                <div id="app-mode" class="feature-tab-content">
+                    <h3>App Market / Plugin Library (Functionality)</h3>
+                    <p>This is how you extend your site's capabilities beyond basic design. Examples of popular apps:</p>
+                    <ul>
+                        <li><strong>Wix Apps:</strong> Live Chat, Advanced Booking System, E-commerce (if not built-in).</li>
+                        <li><strong>WordPress Plugins:</strong> Security suites (Wordfence), Optimization (Yoast SEO), Form builders (Gravity Forms).</li>
+                    </ul>
+                    <p><strong>Caution:</strong> Only install apps/plugins you absolutely need, as too many can slow down your site.</p>
+                </div>
+                
+                <div id="seo-mode" class="feature-tab-content">
+                    <h3>SEO Tools (Visibility)</h3>
+                    <p>These tools help search engines like Google understand and rank your site's content.</p>
+                    <ul>
+                        <li><strong>Site Verification:</strong> Connecting your site to Google Search Console.</li>
+                        <li><strong>Page Titles & Descriptions:</strong> Setting the text that appears in search results.</li>
+                        <li><strong>Sitemap Submission:</strong> Ensuring Google knows all the pages on your site (often automated by the builder).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 1. Section Navigation Logic (Tabs) ---
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            const activateSection = (targetId) => {
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                contentSections.forEach(section => section.classList.remove('active'));
+
+                const targetButton = document.querySelector(`.nav-btn[data-target="${targetId}"]`);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetButton && targetSection) {
+                    targetButton.classList.add('active');
+                    targetSection.classList.add('active');
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            };
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    activateSection(button.getAttribute('data-target'));
+                });
+            });
+
+            // --- 2. Dashboard Feature Tab Logic ---
+            const featureTabButtons = document.querySelectorAll('.feature-tab-btn');
+            const featureTabContents = document.querySelectorAll('.feature-tab-content');
+
+            featureTabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-tab');
+
+                    // Deactivate all buttons and content
+                    featureTabButtons.forEach(btn => btn.classList.remove('active'));
+                    featureTabContents.forEach(content => content.classList.remove('active'));
+
+                    // Activate the clicked button
+                    button.classList.add('active');
+
+                    // Show the corresponding content
+                    const targetContent = document.getElementById(targetId);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

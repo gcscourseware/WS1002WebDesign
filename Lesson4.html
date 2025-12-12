@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LU04</title>
+    <style>
+        /* CSS Styling - Content Management Theme (Consistent Purple/Yellow Theme) */
+        :root {
+            --primary-color: #7c3aed; /* Deep Purple for focus */
+            --secondary-color: #fcd34d; /* Amber/Yellow for insights */
+            --text-color: #374151;
+            --bg-color: #f3f4f6; /* Light Gray */
+            --card-bg: #fff;
+            --radius: 12px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            margin: 0 0 5px 0;
+            font-size: 2.5em;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 8px;
+            margin-top: 30px;
+            font-size: 1.8em;
+        }
+
+        /* Navigation Styling (Tabs) */
+        #lesson-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px auto;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .nav-btn {
+            background: transparent;
+            color: var(--text-color);
+            border: none;
+            padding: 15px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: color 0.3s, border-bottom 0.3s;
+            font-weight: 600;
+            border-radius: 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-btn.active, .nav-btn:hover {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        /* Content Section Styling */
+        .content-section {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+            display: none; 
+        }
+
+        .content-section.active {
+            display: block; 
+        }
+
+        /* Highlight Box - Tips */
+        .highlight-box {
+            background: #ede9fe; /* Light purple */
+            border-left: 5px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        
+        /* Alert Box - Important Focus */
+        .alert-box {
+            background: #fffbeb; /* Light yellow */
+            border-left: 5px solid var(--secondary-color);
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            main {
+                padding: 0 10px;
+            }
+            #lesson-nav {
+                flex-direction: column;
+            }
+            .nav-btn {
+                width: 100%;
+                margin: 5px 0;
+                border-bottom: none !important;
+            }
+            .nav-btn.active {
+                border: 1px solid var(--primary-color);
+                background-color: #ede9fe;
+                color: var(--primary-color);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LU04:Adding and Managing Content</h1>
+    </header>
+
+    <main>
+        <nav id="lesson-nav">
+            <button class="nav-btn active" data-target="media">1. Text, Images, and Video</button>
+            <button class="nav-btn" data-target="pages">2. Creating and Managing Pages</button>
+            <button class="nav-btn" data-target="navigation">3. Structuring Menus</button>
+        </nav>
+
+        <!-- Section 1: Working with text, images, and videos -->
+        <section id="media" class="content-section active">
+            <h2>🖼️ 1. Working with Text, Images, and Video</h2>
+            <p>Content builders make adding media straightforward. The key is optimization and placement.</p>
+
+            <h3>Text Management:</h3>
+            <div class="highlight-box">
+                <p><strong>Editing:</strong> In most builders (like Wix), you simply click the text box to edit content. Use the inline text editor (toolbar) to set headings (H1, H2, P), adjust alignment, and apply links.</p>
+                <ul>
+                    <li><strong>SEO Tip:</strong> Only use one H1 tag per page. Use H2s and H3s for subheadings and structural hierarchy.</li>
+                </ul>
+            </div>
+            
+            <h3>Image and Video Handling:</h3>
+            <div class="highlight-box" style="border-left-color: #fcd34d; background: #fffbeb;">
+                <p><strong>The Media Manager:</strong> This central library stores all uploaded assets. Always upload the highest quality image you have, and let the builder optimize the size for faster loading.</p>
+                <ul>
+                    <li><strong>Image Best Practice:</strong> After uploading, always add <strong>Alt Text</strong> (Alternative Text). This describes the image for screen readers and search engines, improving accessibility and SEO.</li>
+                    <li><strong>Video Embedding:</strong> For videos, never upload the file directly unless absolutely necessary. Instead, use the video element to embed content hosted on YouTube or Vimeo. This prevents slow site loading.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 2: Creating and managing pages -->
+        <section id="pages" class="content-section">
+            <h2>📄 2. Creating and Managing Pages</h2>
+            <p>The "Pages" menu is where you define your site's architecture. A logical structure is essential for user experience.</p>
+
+            <h3>Steps for Page Management:</h3>
+            <ol>
+                <li><strong>Adding a Page:</strong> Click the "+" icon or "Add Page" button in the Pages menu. You can start with a blank page, or choose from pre-designed layout options (e.g., Contact page, Services page).</li>
+                <li><strong>Naming:</strong> Give the page a clear, concise name (e.g., "Our Team," "Pricing"). This name often defaults to the menu label.</li>
+                <li><strong>Page Settings:</strong> Access settings to manage important metadata:
+                    <ul>
+                        <li><strong>SEO:</strong> Set the Page Title and Description that appear in search results.</li>
+                        <li><strong>URL Slug:</strong> Customize the address (e.g., change `/our-story-long` to `/about`).</li>
+                        <li><strong>Permissions:</strong> Choose whether the page is public or restricted (e.g., members only).</li>
+                    </ul>
+                </li>
+                <li><strong>Duplicating & Hiding:</strong> If you need a new page with the same layout, duplicating an existing page is a massive time saver. You can also hide unfinished pages from the public until they are ready.</li>
+            </ol>
+        </section>
+
+        <!-- Section 3: Structuring navigation and menus -->
+        <section id="navigation" class="content-section">
+            <h2>🗺️ 3. Structuring Navigation and Menus</h2>
+            <p>Navigation is the roadmap for your users. Good navigation should be intuitive, discoverable, and consistent.</p>
+
+            <div class="alert-box">
+                <strong>Rule of Thumb:</strong> If a user can't find what they need in three clicks or less, your navigation is too complex.
+            </div>
+
+            <h3>Key Menu Elements:</h3>
+            
+            <div class="highlight-box">
+                <strong>Primary Menu (Header):</strong><br>
+                <p>This is the main navigation bar at the top of your site. It should only contain links to your most critical pages (Home, About, Services/Products, Contact).</p>
+                <ul>
+                    <li><strong>Best Practice:</strong> Keep it to 5-7 items maximum.</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box" style="border-left-color: #fcd34d; background: #fffbeb;">
+                <strong>Creating Sub-Menus (Dropdowns):</strong><br>
+                <p>To create a nested menu (e.g., Services > Web Design, Services > SEO), you typically drag the sub-page slightly underneath and to the right of its parent page within the Pages management panel. This creates the visual hierarchy.</p>
+                <p><strong>Note:</strong> On mobile, these dropdowns usually collapse into an accordion style within the hamburger menu.</p>
+            </div>
+            
+            <div class="highlight-box">
+                <strong>Footer Navigation:</strong><br>
+                <p>Use the footer for secondary, less critical links: Privacy Policy, Terms of Use, Sitemap, and other informational pages that don't need prime real estate in the header.</p>
+            </div>
+
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Section Navigation Logic (Tabs) ---
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            const activateSection = (targetId) => {
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                contentSections.forEach(section => section.classList.remove('active'));
+
+                const targetButton = document.querySelector(`.nav-btn[data-target="${targetId}"]`);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetButton && targetSection) {
+                    targetButton.classList.add('active');
+                    targetSection.classList.add('active');
+                    // Scroll smoothly to the start of the section content
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            };
+
+            // Set up click listeners for main navigation
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    activateSection(button.getAttribute('data-target'));
+                });
+            });
+
+            // Ensure the first section is active on load
+            activateSection('media');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LU01</title>
+    <style>
+        /* CSS Styling - Design and Planning Theme (Modern, Clean Purple/Yellow) */
+        :root {
+            --primary-color: #7c3aed; /* Deep Purple for focus */
+            --secondary-color: #fcd34d; /* Amber/Yellow for insights */
+            --text-color: #374151;
+            --bg-color: #f3f4f6; /* Light Gray */
+            --card-bg: #fff;
+            --radius: 12px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            margin: 0 0 5px 0;
+            font-size: 2.5em;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 8px;
+            margin-top: 30px;
+            font-size: 1.8em;
+        }
+
+        /* Navigation Styling */
+        #lesson-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px auto;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .nav-btn {
+            background: transparent;
+            color: var(--text-color);
+            border: none;
+            padding: 15px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: color 0.3s, border-bottom 0.3s;
+            font-weight: 600;
+            border-radius: 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-btn.active, .nav-btn:hover {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        /* Content Section Styling */
+        .content-section {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+            display: none; 
+        }
+
+        .content-section.active {
+            display: block; 
+        }
+
+        /* Toggle/Accordion Styling */
+        .toggle-container {
+            border: 1px solid #e0e0e0;
+            border-radius: var(--radius);
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .toggle-header {
+            width: 100%;
+            text-align: left;
+            background: #ede9fe; /* Lightest purple */
+            color: var(--text-color);
+            border: none;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .toggle-header:hover {
+            background: #d4c2ff;
+        }
+
+        .toggle-header.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .toggle-header span.icon {
+            font-size: 1.2em;
+            transition: transform 0.3s;
+        }
+
+        .toggle-header.active span.icon {
+            transform: rotate(180deg);
+        }
+
+        .toggle-body {
+            background: #fff;
+            padding: 0 15px;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+        }
+        
+        .toggle-body.active {
+            padding: 15px;
+        }
+
+        /* Activity Styling */
+        .activity-box {
+            background: #fffbeb; 
+            padding: 25px;
+            border: 2px dashed var(--secondary-color);
+            border-radius: var(--radius);
+            margin-top: 20px;
+        }
+
+        .activity-box label {
+            font-weight: 600;
+            color: var(--primary-color);
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .activity-box input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        .activity-box button {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+        .activity-box button:hover {
+            opacity: 0.9;
+        }
+        .activity-box button:active {
+            transform: translateY(1px);
+        }
+
+        #feedback-area {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            display: none;
+            font-weight: 600;
+        }
+        .good-feedback {
+            background-color: #d1fae5; 
+            color: #065f46;
+        }
+        .hint-feedback {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            main {
+                padding: 0 10px;
+            }
+            #lesson-nav {
+                flex-direction: column;
+            }
+            .nav-btn {
+                width: 100%;
+                margin: 5px 0;
+                border-bottom: none !important; /* Override border for stacked buttons */
+            }
+            .nav-btn.active {
+                border: 1px solid var(--primary-color);
+                background-color: #ede9fe;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LU01:Introduction to Website Design & Planning </h1>
+    </header>
+
+    <main>
+        <nav id="lesson-nav">
+            <button class="nav-btn active" data-target="builders">1. Overview of Website Builders</button>
+            <button class="nav-btn" data-target="goals">2. Goals & Target Audience</button>
+            <button class="nav-btn" data-target="planning">3. Structure & Content Planning</button>
+        </nav>
+
+        <!-- Section 1: Overview of website builders (Wix, WordPress, etc.) -->
+        <section id="builders" class="content-section active">
+            <h2>🧱 1. Choosing Your Foundation: Website Builders</h2>
+            <p>The first decision is the platform that will host and manage your content. There are two main categories:</p>
+
+            <div class="toggle-container">
+                <button class="toggle-header active" data-toggle="wix-overview">Wix (Visual Drag-and-Drop) <span class="icon">▼</span></button>
+                <div class="toggle-body active" id="wix-overview">
+                    <p><strong>Overview:</strong> Wix is a popular, all-in-one platform known for its extreme ease of use and visual editor. It includes hosting, domain registration, and customer support.</p>
+                    <ul>
+                        <li><strong>Pros:</strong> Excellent for beginners, fast setup, extensive template library, no coding required.</li>
+                        <li><strong>Cons:</strong> Less flexibility for large, custom projects; difficult to migrate content off the platform later.</li>
+                        <li><strong>Best For:</strong> Small businesses, portfolios, service providers, and anyone prioritizing speed and simplicity.</li>
+                    </ul>
+                </div>
+
+                <button class="toggle-header" data-toggle="wordpress-overview">WordPress (Self-Hosted CMS) <span class="icon">▼</span></button>
+                <div class="toggle-body" id="wordpress-overview">
+                    <p><strong>Overview:</strong> WordPress is the world's most popular Content Management System (CMS), offering unparalleled control and scalability.</p>
+                    <ul>
+                        <li><strong>Pros:</strong> Unlimited customization via themes and plugins, excellent scalability, strong community support, full data ownership.</li>
+                        <li><strong>Cons:</strong> Requires more technical setup (hosting, security, maintenance); higher learning curve.</li>
+                        <li><strong>Best For:</strong> Large blogs, complex custom applications, high-traffic e-commerce (using WooCommerce).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Understanding website goals and target audience -->
+        <section id="goals" class="content-section">
+            <h2>🎯 2. Defining Goals and Target Audience</h2>
+            <p>Before designing, you must answer two fundamental questions: "What is this site for?" and "Who is going to use it?"</p>
+            
+            <div class="toggle-container">
+                <button class="toggle-header active" data-toggle="goals-types">Types of Website Goals <span class="icon">▼</span></button>
+                <div class="toggle-body active" id="goals-types">
+                    <p>Your goal determines every design choice, from the homepage image to the call-to-action (CTA) buttons:</p>
+                    <ul>
+                        <li><strong>Informational:</strong> Goal is to educate (e.g., news site, blog). Key metric: Time on page, bounce rate.</li>
+                        <li><strong>Transactional:</strong> Goal is to sell products or services (e.g., e-commerce, software subscription). Key metric: Conversion rate.</li>
+                        <li><strong>Lead Generation:</strong> Goal is to capture customer information (e.g., contact forms, email signups). Key metric: Form submission rate.</li>
+                        <li><strong>Branding/Portfolio:</strong> Goal is to showcase work and build trust (e.g., photographer, architect). Key metric: Gallery views, download portfolio clicks.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="activity-box">
+                <h3>Interactive Activity: Define Your Mission</h3>
+                <p>Think about the website you want to build. Define its primary goal and audience clearly.</p>
+                <label for="website-goal">What is the single most important action you want visitors to take?</label>
+                <input type="text" id="website-goal" placeholder="Example: Buy product X or Book a consultation">
+                
+                <label for="target-audience">Describe your target audience (Who are they? What do they value?)</label>
+                <input type="text" id="target-audience" placeholder="Example: Small business owners, aged 30-45, who need simple, fast solutions">
+                
+                <button onclick="analyzeGoals()">Analyze Mission</button>
+                
+                <div id="feedback-area"></div>
+            </div>
+        </section>
+
+        <!-- Section 3: Planning website structure and content -->
+        <section id="planning" class="content-section">
+            <h2>🗺️ 3. Planning Website Structure and Content</h2>
+            <p>A well-planned site uses structure to guide the user seamlessly toward your primary goal.</p>
+            
+            <div class="toggle-container">
+                <button class="toggle-header active" data-toggle="sitemap">The Sitemap (Structure) <span class="icon">▼</span></button>
+                <div class="toggle-body active" id="sitemap">
+                    <p>The sitemap is a hierarchical map of all pages on your site. It defines the main navigation structure. A simple sitemap should look like this:</p>
+                    <pre style="background: #f7f7f7; padding: 10px; border-radius: 4px; overflow-x: auto;">
+- Home
+  |-- About Us
+  |-- Services (Parent Page)
+      |-- Service A Detail Page
+      |-- Service B Detail Page
+  |-- Portfolio / Gallery
+  |-- Blog / News
+  |-- Contact Us
+</pre>
+                    <p><strong>Key Principle:</strong> Users should be able to reach any page on your site in three clicks or less.</p>
+                </div>
+
+                <button class="toggle-header" data-toggle="wireframing">Wireframing (Layout) <span class="icon">▼</span></button>
+                <div class="toggle-body" id="wireframing">
+                    <p>Wireframing is sketching the layout of a page *without* colors, images, or final text. It focuses purely on the placement of elements (navigation, headings, image placeholders, CTA buttons).</p>
+                    <ul>
+                        <li><strong>Purpose:</strong> To ensure that the most important elements (based on your goal) are prominently placed.</li>
+                        <li><strong>Tip:</strong> Always wireframe the mobile view first. Mobile users are the priority for modern web design.</li>
+                    </ul>
+                </div>
+                
+                <button class="toggle-header" data-toggle="content-planning">Content Planning <span class="icon">▼</span></button>
+                <div class="toggle-body" id="content-planning">
+                    <p>Content is king! For each page identified in your sitemap, define the following:</p>
+                    <ol>
+                        <li><strong>SEO Title and Meta Description:</strong> How the page appears in search results.</li>
+                        <li><strong>Primary Headline (H1):</strong> Clear and benefit-driven.</li>
+                        <li><strong>Call-to-Action (CTA):</strong> What button should appear (e.g., "Shop Now," "Learn More," "Get a Quote").</li>
+                        <li><strong>Media Requirements:</strong> Which specific photos, videos, or graphics are needed.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // JavaScript for Interactivity
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 1. Section Navigation Logic (Tabs) ---
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            const activateSection = (targetId) => {
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                contentSections.forEach(section => section.classList.remove('active'));
+
+                const targetButton = document.querySelector(`.nav-btn[data-target="${targetId}"]`);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetButton && targetSection) {
+                    targetButton.classList.add('active');
+                    targetSection.classList.add('active');
+                    // Scroll smoothly to the content area
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            };
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    activateSection(button.getAttribute('data-target'));
+                });
+            });
+
+            // --- 2. Toggle/Accordion Logic ---
+            const toggleHeaders = document.querySelectorAll('.toggle-header');
+
+            toggleHeaders.forEach(header => {
+                // Set up initial max-height for open toggles
+                const bodyId = header.getAttribute('data-toggle');
+                const targetBody = document.getElementById(bodyId);
+
+                if (header.classList.contains('active') && targetBody) {
+                    targetBody.style.maxHeight = targetBody.scrollHeight + "px";
+                    targetBody.style.padding = '15px';
+                }
+
+                header.addEventListener('click', () => {
+                    const isCurrentlyActive = header.classList.contains('active');
+                    const container = header.closest('.toggle-container');
+
+                    // Close all toggles in the same container
+                    container.querySelectorAll('.toggle-header').forEach(h => h.classList.remove('active'));
+                    container.querySelectorAll('.toggle-body').forEach(b => {
+                        b.classList.remove('active');
+                        b.style.maxHeight = null;
+                        b.style.padding = '0 15px'; 
+                    });
+
+                    // If it was not active, open it
+                    if (!isCurrentlyActive) {
+                        header.classList.add('active');
+                        targetBody.classList.add('active');
+                        targetBody.style.padding = '15px'; 
+                        targetBody.style.maxHeight = targetBody.scrollHeight + "px";
+                    }
+                });
+            });
+
+            // --- 3. Activity Logic (Goals & Audience) ---
+            window.analyzeGoals = function() {
+                const goalInput = document.getElementById('website-goal').value.trim();
+                const audienceInput = document.getElementById('target-audience').value.trim();
+                const feedbackArea = document.getElementById('feedback-area');
+                let message = '';
+                let isGood = true;
+
+                if (goalInput.length < 10 || audienceInput.length < 10) {
+                    message = 'Please provide a more detailed answer for both your goal and audience. Short, vague answers don\'t lead to clear design plans!';
+                    isGood = false;
+                } else if (goalInput.toLowerCase().includes('sell') && !audienceInput.toLowerCase().includes('buyer')) {
+                     message = 'Your goal is transactional (selling), which is clear! Now ensure your audience description explicitly mentions their purchasing power or pain points.';
+                     isGood = true;
+                } else if (goalInput.toLowerCase().includes('inform') || goalInput.toLowerCase().includes('educate')) {
+                    message = 'Your informational goal is solid. Remember to structure your site (Topic 3) for easy reading and navigation!';
+                    isGood = true;
+                } else {
+                    message = `Excellent start! Your goal ("${goalInput}") and audience ("${audienceInput}") are the foundation. Now proceed to planning your site structure.`;
+                    isGood = true;
+                }
+
+                feedbackArea.textContent = message;
+                feedbackArea.className = isGood ? 'good-feedback' : 'hint-feedback';
+                feedbackArea.style.display = 'block';
+            };
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LU06</title>
+    <style>
+        /* CSS Styling - Layout Design Theme (Consistent Purple/Yellow Theme) */
+        :root {
+            --primary-color: #7c3aed; /* Deep Purple for focus */
+            --secondary-color: #fcd34d; /* Amber/Yellow for insights */
+            --text-color: #374151;
+            --bg-color: #f3f4f6; /* Light Gray */
+            --card-bg: #fff;
+            --radius: 12px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            margin: 0 0 5px 0;
+            font-size: 2.5em;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 8px;
+            margin-top: 30px;
+            font-size: 1.8em;
+        }
+
+        /* Navigation Styling (Tabs) */
+        #lesson-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px auto;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .nav-btn {
+            background: transparent;
+            color: var(--text-color);
+            border: none;
+            padding: 15px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: color 0.3s, border-bottom 0.3s;
+            font-weight: 600;
+            border-radius: 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-btn.active, .nav-btn:hover {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        /* Content Section Styling */
+        .content-section {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+            display: none; 
+        }
+
+        .content-section.active {
+            display: block; 
+        }
+
+        /* Highlight Box - Tips */
+        .highlight-box {
+            background: #ede9fe; /* Light purple */
+            border-left: 5px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        
+        /* Alert Box - Important Focus */
+        .alert-box {
+            background: #fffbeb; /* Light yellow */
+            border-left: 5px solid var(--secondary-color);
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            main {
+                padding: 0 10px;
+            }
+            #lesson-nav {
+                flex-direction: column;
+            }
+            .nav-btn {
+                width: 100%;
+                margin: 5px 0;
+                border-bottom: none !important;
+            }
+            .nav-btn.active {
+                border: 1px solid var(--primary-color);
+                background-color: #ede9fe;
+                color: var(--primary-color);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LU06: Extending Functionality with Plugins and Apps</h1>
+    </header>
+
+    <main>
+        <nav id="lesson-nav">
+            <button class="nav-btn active" data-target="market">1. Exploring App Markets</button>
+            <button class="nav-btn" data-target="elements">2. Adding Essential Elements</button>
+            <button class="nav-btn" data-target="third-party">3. Using Third-Party Integrations</button>
+        </nav>
+
+        <!-- Section 1: Exploring Wix App Market and WordPress Plugins -->
+        <section id="market" class="content-section active">
+            <h2>🛒 1. Exploring App Markets</h2>
+            <p>App Markets (Wix) or Plugin Repositories (WordPress) are specialized marketplaces where you can add new features without coding.</p>
+
+            <h3>The Difference: Apps vs. Plugins</h3>
+            <div class="highlight-box">
+                <strong>Wix App Market (Apps):</strong><br>
+                <p>These are highly integrated modules designed specifically for the Wix environment. Installation is typically one-click and configuration happens entirely within the Wix editor or dashboard.</p>
+                <ul>
+                    <li><strong>Focus:</strong> E-commerce, booking, galleries, forms, or specialized industry tools.</li>
+                    <li><strong>Security:</strong> Generally vetted by Wix, making security a lower concern.</li>
+                </ul>
+            </div>
+            
+            <div class="highlight-box" style="border-left-color: #fcd3d; background: #fffbeb;">
+                <strong>WordPress Plugins:</strong><br>
+                <p>Plugins add code functionality to your WordPress installation. They offer maximum flexibility but require more caution regarding conflicts and security.</p>
+                <ul>
+                    <li><strong>Focus:</strong> SEO (Yoast), Security (Wordfence), Page Building (Elementor), Caching, and virtually any other function.</li>
+                    <li><strong>Caution:</strong> Always check the plugin's last update date, active installs, and user reviews before installing.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 2: Adding forms, social media, and interactive elements -->
+        <section id="elements" class="content-section">
+            <h2>📧 2. Adding Essential Interactive Elements</h2>
+            <p>These core elements drive engagement and data collection on your website.</p>
+
+            <h3>Forms (Contact, Subscribe, Lead Generation):</h3>
+            <div class="highlight-box">
+                <p>Forms are often built-in or available as a highly-rated app/plugin (e.g., Contact Form 7 or Wix Forms). </p>
+                <ul>
+                    <li><strong>Best Practice:</strong> Keep forms short. Only ask for the necessary information. Long forms drastically reduce completion rates.</li>
+                    <li><strong>Validation:</strong> Ensure form fields use validation (e.g., checking for valid email formats) to guarantee accurate data collection.</li>
+                </ul>
+            </div>
+
+            <h3>Social Media Integration:</h3>
+            <div class="highlight-box" style="border-left-color: #fcd3d; background: #fffbeb;">
+                <p>There are two types of social integration:</p>
+                <ul>
+                    <li><strong>Social Links:</strong> Simple icons that link to your profiles (Facebook, Instagram, LinkedIn). These typically live in the header and footer.</li>
+                    <li><strong>Social Feeds:</strong> Widgets that display live content (e.g., your latest Instagram photos) directly on your site. This requires granting API access to the app/plugin.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 3: Using third-party integrations -->
+        <section id="third-party" class="content-section">
+            <h2>⚙️ 3. Using Third-Party Integrations</h2>
+            <p>Integrations connect your website to external software services, such as marketing automation or analytics.</p>
+
+            <h3>Common Integration Types:</h3>
+            <ol>
+                <li><strong>Marketing & CRM:</strong> Connecting forms to tools like Mailchimp (email list) or HubSpot (customer relationship management) to automatically save user data.</li>
+                <li><strong>Analytics:</strong> Embedding tracking codes from platforms like Google Analytics or Facebook Pixel. This is usually done via a dedicated "Tracking Code" or "Custom HTML" section in the site settings.</li>
+                <li><strong>Payments:</strong> Integrating providers like PayPal, Stripe, or local gateways for e-commerce checkouts.</li>
+            </ol>
+            
+            <div class="alert-box">
+                <strong>The Code Snippet Method:</strong> For specialized third-party tools not available in the market, you will often receive a JavaScript or HTML "snippet" (a block of code). You must paste this code into the editor's dedicated <strong>Custom Code</strong> or <strong>Embed HTML</strong> element.
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Section Navigation Logic (Tabs) ---
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            const activateSection = (targetId) => {
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                contentSections.forEach(section => section.classList.remove('active'));
+
+                const targetButton = document.querySelector(`.nav-btn[data-target="${targetId}"]`);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetButton && targetSection) {
+                    targetButton.classList.add('active');
+                    targetSection.classList.add('active');
+                    // Scroll smoothly to the start of the section content
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            };
+
+            // Set up click listeners for main navigation
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    activateSection(button.getAttribute('data-target'));
+                });
+            });
+
+            // Ensure the first section is active on load
+            activateSection('market');
+        });
+    </script>
+</body>
+</html>

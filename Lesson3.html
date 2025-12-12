@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LU04</title>
+    <style>
+        /* CSS Styling - Design and Customization Theme (Modern, Clean Purple/Yellow from previous lesson) */
+        :root {
+            --primary-color: #7c3aed; /* Deep Purple for focus */
+            --secondary-color: #fcd34d; /* Amber/Yellow for insights */
+            --text-color: #374151;
+            --bg-color: #f3f4f6; /* Light Gray */
+            --card-bg: #fff;
+            --radius: 12px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            margin: 0 0 5px 0;
+            font-size: 2.5em;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 8px;
+            margin-top: 30px;
+            font-size: 1.8em;
+        }
+
+        /* Navigation Styling (Tabs) */
+        #lesson-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px auto;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .nav-btn {
+            background: transparent;
+            color: var(--text-color);
+            border: none;
+            padding: 15px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: color 0.3s, border-bottom 0.3s;
+            font-weight: 600;
+            border-radius: 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-btn.active, .nav-btn:hover {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        /* Content Section Styling */
+        .content-section {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+            display: none; 
+        }
+
+        .content-section.active {
+            display: block; 
+        }
+
+        /* Highlight Box - Template comparison */
+        .highlight-box {
+            background: #ede9fe; /* Light purple */
+            border-left: 5px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        
+        /* Alert Box - Responsive Design Focus */
+        .alert-box {
+            background: #fffbeb; /* Light yellow */
+            border-left: 5px solid var(--secondary-color);
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            main {
+                padding: 0 10px;
+            }
+            #lesson-nav {
+                flex-direction: column;
+            }
+            .nav-btn {
+                width: 100%;
+                margin: 5px 0;
+                border-bottom: none !important;
+            }
+            .nav-btn.active {
+                border: 1px solid var(--primary-color);
+                background-color: #ede9fe;
+                color: var(--primary-color);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LU04:Selecting and Customizing a Template/Theme</h1>
+      
+    </header>
+
+    <main>
+        <nav id="lesson-nav">
+            <button class="nav-btn active" data-target="definitions">1. Templates vs. Themes</button>
+            <button class="nav-btn" data-target="branding">2. Colors, Fonts & Branding</button>
+            <button class="nav-btn" data-target="responsive">3. Responsive Design</button>
+        </nav>
+
+        <!-- Section 1: Understanding templates (Wix) and themes (WordPress) -->
+        <section id="definitions" class="content-section active">
+            <h2>🧩 1. Understanding Templates (Wix) and Themes (WordPress)</h2>
+            <p>While often used interchangeably, these terms have different implications based on the platform you choose.</p>
+
+            <div class="highlight-box">
+                <strong>Wix: Templates (Layout Focus)</strong><br>
+                <p>A Wix template is primarily a starting **layout**. Once you choose one and begin editing, you are locked into that specific layout structure. The visual drag-and-drop editor allows extensive customization of every element's position, color, and size.</p>
+                <ul>
+                    <li><strong>Key Feature:</strong> Visual freedom.</li>
+                    <li><strong>Limitation:</strong> You cannot easily switch to a different template later without rebuilding.</li>
+                </ul>
+            </div>
+            
+            <div class="highlight-box" style="border-left-color: #fcd34d; background: #fffbeb;">
+                <strong>WordPress: Themes (Functional Focus)</strong><br>
+                <p>A WordPress theme dictates the overall design and functionality wrapper. The content (pages, posts) is separate from the theme. This allows you to change themes later without losing your text and images (though reformatting is often required).</p>
+                <ul>
+                    <li><strong>Key Feature:</strong> Flexibility and switchability.</li>
+                    <li><strong>Limitation:</strong> Customization relies heavily on the theme's built-in options or using code/plugins.</li>
+                </ul>
+            </div>
+            
+            <h3>Choosing the Right Starting Point:</h3>
+            <p>Select a template/theme that has the **structure** you need (e.g., e-commerce features, blogging layouts, portfolio grids), even if the colors and fonts are wrong. It is always easier to change aesthetics than core structure.</p>
+        </section>
+
+        <!-- Section 2: Customizing colors, fonts, and branding -->
+        <section id="branding" class="content-section">
+            <h2>🖋️ 2. Customizing Colors, Fonts, and Branding</h2>
+            <p>Injecting your brand identity into the site is the most crucial step after selection. Most builders offer global styling options to manage this efficiently.</p>
+
+            <h3>The Three Pillars of Customization:</h3>
+            
+            <div class="highlight-box">
+                <strong>Pillar 1: Color Palette Management</strong><br>
+                <p>Define your primary (main brand color), secondary (accent/CTA color), and neutral (background/text) colors in the site's **Global Styles** area. This ensures consistency across all pages and elements.</p>
+                <ul>
+                    <li><strong>Tip:</strong> Use a contrast checker tool to ensure your text color and background color are legible (e.g., dark text on a light background).</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box" style="border-left-color: #fcd34d; background: #fffbeb;">
+                <strong>Pillar 2: Typography Selection</strong><br>
+                <p>Choose no more than two fonts: one for **Headings** (H1, H2, H3) and one for **Body Text** (paragraphs, lists). Ensure both are highly legible, especially at small mobile sizes. Set font sizes globally for consistency.</p>
+            </div>
+            
+            <div class="highlight-box">
+                <strong>Pillar 3: Header and Footer Branding</strong><br>
+                <p>These two areas hold the most critical branding elements. Ensure you:</p>
+                <ol>
+                    <li>Upload a high-resolution version of your logo (must look good on all backgrounds).</li>
+                    <li>Ensure the main navigation is clear, concise, and links correctly to primary pages.</li>
+                    <li>Place copyright info and social media links in the footer.</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Section 3: Best practices for responsive design -->
+        <section id="responsive" class="content-section">
+            <h2>📱 3. Best Practices for Responsive Design</h2>
+            <p>Over 50% of website traffic is mobile. A successful customization ensures your site looks and functions perfectly on phones, tablets, and desktops.</p>
+
+            <div class="alert-box">
+                <strong>Crucial Step:</strong> Always check your site using the builder's built-in Mobile View or Preview Mode before publishing.
+            </div>
+
+            <h3>Key Responsive Principles:</h3>
+            <ul>
+                <li><strong>Mobile-First Editing:</strong> Many modern builders encourage editing the mobile view first, as it forces simplicity and speed.</li>
+                <li><strong>Use Fluid Layouts:</strong> Avoid fixed pixel widths (e.g., `width: 500px`). Use percentages, viewport units (`vw`), or grid/flex layouts that automatically adjust to screen size.</li>
+                <li><strong>Image Optimization:</strong> Use tools within the builder to ensure large, high-resolution images are scaled down and compressed for mobile loading speed.</li>
+                <li><strong>Simplify Navigation:</strong> On mobile, convert your large desktop menu into a compact, easily tappable "Hamburger Menu" (three stacked lines).</li>
+                <li><strong>Keep Text Short:</strong> Large blocks of text are harder to read on small screens. Use bullet points and shorter paragraphs for scannability.</li>
+            </ul>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Section Navigation Logic (Tabs) ---
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            const activateSection = (targetId) => {
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                contentSections.forEach(section => section.classList.remove('active'));
+
+                const targetButton = document.querySelector(`.nav-btn[data-target="${targetId}"]`);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetButton && targetSection) {
+                    targetButton.classList.add('active');
+                    targetSection.classList.add('active');
+                    // Scroll smoothly to the start of the section content
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            };
+
+            // Set up click listeners for main navigation
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    activateSection(button.getAttribute('data-target'));
+                });
+            });
+
+            // Ensure the first section is active on load (handled by initial HTML structure, but good practice)
+            // activateSection('definitions');
+        });
+    </script>
+</body>
+</html>
