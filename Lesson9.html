@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LU09</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
+
+        .phone-frame {
+            border: 12px solid #333;
+            border-radius: 30px;
+            overflow: hidden;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .desktop-frame {
+            border: 12px solid #333;
+            border-radius: 10px;
+            border-bottom-width: 20px;
+            overflow: hidden;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .animate-pop {
+            animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes pop {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .health-bar-container {
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .health-fill {
+            transition: width 0.5s ease-out, background-color 0.5s ease;
+        }
+
+        /* Checkbox custom style */
+        .custom-checkbox:checked + div {
+            background-color: #eff6ff;
+            border-color: #3b82f6;
+        }
+        .custom-checkbox:checked + div .check-icon {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="text-gray-800 h-screen flex flex-col overflow-hidden">
+
+    <!-- Header -->
+    <header class="bg-indigo-900 text-white p-4 shadow-lg flex-none z-10">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <i class="fab fa-wix text-3xl text-yellow-400"></i>
+                <div>
+                    <h1 class="font-bold text-xl leading-tight">LU09:Publishing & Maintaining Your Website</h1>
+                  
+                </div>
+            </div>
+            <div class="hidden md:flex gap-4 text-sm font-semibold">
+                <div class="flex items-center gap-2">
+                    <span class="bg-indigo-700 w-6 h-6 rounded-full flex items-center justify-center text-xs">1</span> Preview
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="bg-indigo-700 w-6 h-6 rounded-full flex items-center justify-center text-xs">2</span> Domain
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="bg-indigo-700 w-6 h-6 rounded-full flex items-center justify-center text-xs">3</span> Maintain
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="flex flex-1 overflow-hidden max-w-6xl mx-auto w-full">
+        
+        <!-- Sidebar Navigation -->
+        <nav class="w-64 bg-white border-r border-gray-200 overflow-y-auto hidden md:block flex-none">
+            <div class="p-4">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Course Modules</p>
+                <button onclick="switchTab('preview')" id="nav-preview" class="nav-btn w-full text-left p-3 rounded-lg mb-2 flex items-center gap-3 bg-indigo-50 text-indigo-700 font-semibold border-l-4 border-indigo-600">
+                    <i class="fas fa-eye w-5"></i> Preview & Test
+                </button>
+                <button onclick="switchTab('domain')" id="nav-domain" class="nav-btn w-full text-left p-3 rounded-lg mb-2 flex items-center gap-3 hover:bg-gray-50 text-gray-600 border-l-4 border-transparent">
+                    <i class="fas fa-globe w-5"></i> Connect Domain
+                </button>
+                <button onclick="switchTab('maintain')" id="nav-maintain" class="nav-btn w-full text-left p-3 rounded-lg mb-2 flex items-center gap-3 hover:bg-gray-50 text-gray-600 border-l-4 border-transparent">
+                    <i class="fas fa-tools w-5"></i> Maintenance
+                </button>
+                <button onclick="switchTab('quiz')" id="nav-quiz" class="nav-btn w-full text-left p-3 rounded-lg mb-2 flex items-center gap-3 hover:bg-gray-50 text-gray-600 border-l-4 border-transparent">
+                    <i class="fas fa-graduation-cap w-5"></i> Final Quiz
+                </button>
+            </div>
+            
+            <div class="p-4 mt-auto border-t">
+                <div class="bg-blue-50 p-3 rounded-lg border border-blue-100">
+                    <h4 class="font-bold text-blue-800 text-sm mb-1"><i class="fas fa-lightbulb mr-1"></i> Pro Tip</h4>
+                    <p id="dynamic-tip" class="text-xs text-blue-600">Always preview your site on mobile before hitting publish!</p>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Content Area -->
+        <main class="flex-1 overflow-y-auto p-4 md:p-8 relative scroll-smooth" id="main-content">
+            
+            <!-- Mobile Menu Toggle -->
+            <div class="md:hidden mb-4">
+                <select onchange="switchTab(this.value)" class="w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm font-semibold">
+                    <option value="preview">1. Preview & Test</option>
+                    <option value="domain">2. Connect Domain</option>
+                    <option value="maintain">3. Maintenance</option>
+                    <option value="quiz">4. Final Quiz</option>
+                </select>
+            </div>
+
+            <!-- MODULE 1: PREVIEW -->
+            <div id="section-preview" class="section-content">
+                <div class="max-w-3xl mx-auto">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Preview & Test</h2>
+                    <p class="text-gray-600 mb-6">Before you click "Publish", you must ensure your site looks great on every device.</p>
+
+                    <!-- Interactive Simulation -->
+                    <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden mb-8">
+                        <div class="bg-gray-100 p-4 border-b flex justify-between items-center">
+                            <h3 class="font-bold text-gray-700">Simulator: The Wix Editor</h3>
+                            <div class="flex bg-white rounded-lg p-1 shadow-sm border">
+                                <button onclick="setPreviewMode('desktop')" id="btn-desktop" class="px-4 py-1.5 rounded-md text-sm font-medium bg-blue-100 text-blue-700 transition"><i class="fas fa-desktop mr-2"></i>Desktop</button>
+                                <button onclick="setPreviewMode('mobile')" id="btn-mobile" class="px-4 py-1.5 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700 transition"><i class="fas fa-mobile-alt mr-2"></i>Mobile</button>
+                            </div>
+                        </div>
+                        
+                        <div class="p-8 bg-gray-50 flex justify-center items-center min-h-[400px]">
+                            <!-- Desktop View -->
+                            <div id="view-desktop" class="desktop-frame w-full h-[300px] relative animate-pop shadow-xl">
+                                <div class="w-full h-8 bg-gray-200 border-b flex items-center px-2 gap-1">
+                                    <div class="w-2 h-2 rounded-full bg-red-400"></div>
+                                    <div class="w-2 h-2 rounded-full bg-yellow-400"></div>
+                                    <div class="w-2 h-2 rounded-full bg-green-400"></div>
+                                </div>
+                                <div class="p-4 grid grid-cols-2 gap-4">
+                                    <div class="space-y-2">
+                                        <div class="h-4 bg-gray-300 rounded w-3/4"></div>
+                                        <div class="h-24 bg-blue-100 rounded flex items-center justify-center text-blue-300 text-xs">Image</div>
+                                        <div class="h-2 bg-gray-200 rounded w-full"></div>
+                                        <div class="h-2 bg-gray-200 rounded w-5/6"></div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <div class="h-32 bg-purple-100 rounded flex items-center justify-center text-purple-300 font-bold">HERO BANNER</div>
+                                        <button class="w-full py-2 bg-black text-white text-xs rounded">Contact Us</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mobile View -->
+                            <div id="view-mobile" class="phone-frame w-[180px] h-[320px] hidden animate-pop shadow-xl relative">
+                                <div class="h-6 bg-black w-full flex justify-center items-center">
+                                    <div class="w-16 h-3 bg-gray-800 rounded-b-lg"></div>
+                                </div>
+                                <div class="p-3 overflow-y-auto h-full space-y-3">
+                                    <div class="h-3 bg-gray-300 rounded w-3/4"></div>
+                                    <!-- The Error Element -->
+                                    <div id="mobile-error" class="bg-red-100 border border-red-300 p-2 rounded text-[10px] text-red-600 cursor-pointer hover:bg-red-200 transition" onclick="fixMobileError()">
+                                        <i class="fas fa-exclamation-circle mr-1"></i> <strong>Tap to Fix:</strong><br>Elements overlapping!
+                                    </div>
+                                    <div id="mobile-fixed" class="hidden bg-green-100 border border-green-300 p-2 rounded text-[10px] text-green-600">
+                                        <i class="fas fa-check-circle mr-1"></i> Layout optimized.
+                                    </div>
+                                    
+                                    <div class="h-20 bg-purple-100 rounded flex items-center justify-center text-purple-300 text-[8px]">HERO</div>
+                                    <button class="w-full py-1 bg-black text-white text-[8px] rounded">Contact</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-white border-t text-sm text-gray-600">
+                            <strong>Interactive Task:</strong> Switch to Mobile view. Notice the layout issue? Tap the red warning to use the "Optimizer".
+                        </div>
+                    </div>
+
+                    <!-- Checklist -->
+                    <div class="bg-white rounded-xl shadow p-6">
+                        <h3 class="font-bold text-lg mb-4">Pre-Publish Checklist</h3>
+                        <div class="space-y-3">
+                            <label class="flex items-start gap-3 cursor-pointer group">
+                                <input type="checkbox" class="custom-checkbox hidden">
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center flex-none transition group-hover:border-blue-400">
+                                    <i class="fas fa-check text-xs text-white check-icon opacity-0 transition"></i>
+                                </div>
+                                <span class="text-gray-700">Check spelling and grammar on all pages.</span>
+                            </label>
+                            <label class="flex items-start gap-3 cursor-pointer group">
+                                <input type="checkbox" class="custom-checkbox hidden">
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center flex-none transition group-hover:border-blue-400">
+                                    <i class="fas fa-check text-xs text-white check-icon opacity-0 transition"></i>
+                                </div>
+                                <span class="text-gray-700">Click every link to ensure no 404 errors.</span>
+                            </label>
+                            <label class="flex items-start gap-3 cursor-pointer group">
+                                <input type="checkbox" class="custom-checkbox hidden">
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center flex-none transition group-hover:border-blue-400">
+                                    <i class="fas fa-check text-xs text-white check-icon opacity-0 transition"></i>
+                                </div>
+                                <span class="text-gray-700">Fill out your contact form to test email delivery.</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODULE 2: DOMAIN -->
+            <div id="section-domain" class="section-content hidden">
+                <div class="max-w-3xl mx-auto">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Connecting a Domain</h2>
+                    <p class="text-gray-600 mb-8">A custom domain (e.g., www.mystore.com) builds trust. Wix offers two main ways to connect.</p>
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <!-- Option 1 -->
+                        <div class="bg-white p-6 rounded-xl shadow border border-gray-200 hover:border-blue-500 transition cursor-pointer relative group" onclick="showDomainDetails('buy')">
+                            <div class="absolute top-4 right-4 bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full font-bold">Easiest</div>
+                            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2">Buy from Wix</h3>
+                            <p class="text-sm text-gray-500">Purchase directly in the dashboard. Settings are configured automatically.</p>
+                        </div>
+
+                        <!-- Option 2 -->
+                        <div class="bg-white p-6 rounded-xl shadow border border-gray-200 hover:border-purple-500 transition cursor-pointer group" onclick="showDomainDetails('connect')">
+                            <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
+                                <i class="fas fa-link"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2">Connect Existing</h3>
+                            <p class="text-sm text-gray-500">Bought from GoDaddy/Namecheap? Point the DNS records to Wix servers.</p>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Details Area -->
+                    <div id="domain-details" class="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hidden animate-pop">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 id="domain-detail-title" class="font-bold text-xl text-gray-800"></h3>
+                            <button onclick="closeDomainDetails()" class="text-gray-400 hover:text-gray-600"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div id="domain-detail-content" class="text-gray-600 space-y-4">
+                            <!-- Content injected via JS -->
+                        </div>
+                        <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400 text-sm text-yellow-800">
+                            <strong>Note:</strong> You must upgrade to a Premium Plan to connect a custom domain. Free sites use <em>username.wixsite.com/site</em>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODULE 3: MAINTENANCE -->
+            <div id="section-maintain" class="section-content hidden">
+                <div class="max-w-3xl mx-auto">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Maintenance & Security</h2>
+                    <p class="text-gray-600 mb-6">Wix handles the heavy lifting (hosting security, SSL), but you manage the content health.</p>
+
+                    <!-- Mini Game -->
+                    <div class="bg-gray-800 rounded-xl shadow-xl overflow-hidden mb-8 text-white relative">
+                        <div class="p-6 border-b border-gray-700 flex justify-between items-center">
+                            <div>
+                                <h3 class="font-bold text-xl"><i class="fas fa-heartbeat text-red-500 mr-2"></i>Site Health Monitor</h3>
+                                <p class="text-xs text-gray-400">Don't let your site health drop to 0%!</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-mono font-bold" id="health-percentage">100%</div>
+                                <div class="text-xs text-gray-400" id="game-status">Status: Optimal</div>
+                            </div>
+                        </div>
+
+                        <div class="p-8">
+                            <!-- Health Bar -->
+                            <div class="w-full h-6 bg-gray-700 rounded-full mb-8 health-bar-container relative overflow-hidden">
+                                <div id="health-bar" class="h-full bg-green-500 health-fill" style="width: 100%;"></div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <button onclick="performMaintenance('backup')" class="bg-gray-700 hover:bg-gray-600 p-4 rounded-lg flex flex-col items-center gap-2 transition active:scale-95 group">
+                                    <i class="fas fa-history text-2xl text-blue-400 group-hover:animate-spin"></i>
+                                    <span class="font-semibold text-sm">Site History</span>
+                                    <span class="text-[10px] text-gray-400 text-center">Restore previous version</span>
+                                </button>
+                                <button onclick="performMaintenance('content')" class="bg-gray-700 hover:bg-gray-600 p-4 rounded-lg flex flex-col items-center gap-2 transition active:scale-95 group">
+                                    <i class="fas fa-edit text-2xl text-yellow-400 group-hover:animate-bounce"></i>
+                                    <span class="font-semibold text-sm">Update Content</span>
+                                    <span class="text-[10px] text-gray-400 text-center">Refresh dates & info</span>
+                                </button>
+                                <button onclick="performMaintenance('security')" class="bg-gray-700 hover:bg-gray-600 p-4 rounded-lg flex flex-col items-center gap-2 transition active:scale-95 group">
+                                    <i class="fas fa-user-shield text-2xl text-green-400 group-hover:pulse"></i>
+                                    <span class="font-semibold text-sm">Review Roles</span>
+                                    <span class="text-[10px] text-gray-400 text-center">Check contributor access</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Game Overlay (Start/Game Over) -->
+                        <div id="game-overlay" class="absolute inset-0 bg-gray-900/90 flex flex-col justify-center items-center z-10">
+                            <h3 class="text-2xl font-bold mb-4" id="overlay-title">Site Maintenance Challenge</h3>
+                            <p class="text-gray-300 mb-6 text-center max-w-sm px-4">Your site health decays over time. Click the maintenance buttons to keep it running smoothly!</p>
+                            <button onclick="startGame()" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 rounded font-bold transition transform hover:scale-105">Start Managing</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl border border-gray-200">
+                        <h4 class="font-bold text-gray-800 mb-3">Key Takeaways</h4>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i> <strong>Wix Updates:</strong> Wix automatically updates the CMS core software. You don't need to click "Update" like in WordPress.</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i> <strong>Site History:</strong> Wix saves versions automatically. Go to <em>Site > Site History</em> to restore an older version if you break something.</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i> <strong>SSL:</strong> SSL Certificates (the padlock icon) are included free and renewed automatically by Wix.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODULE 4: QUIZ -->
+            <div id="section-quiz" class="section-content hidden">
+                <div class="max-w-2xl mx-auto">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">Knowledge Check</h2>
+                    
+                    <div id="quiz-container" class="space-y-6">
+                        <!-- Questions injected by JS -->
+                    </div>
+
+                    <div id="quiz-result" class="hidden mt-8 text-center bg-white p-8 rounded-xl shadow-lg animate-pop">
+                        <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-4xl mx-auto mb-4">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Quiz Complete!</h3>
+                        <p class="text-gray-600 mb-6">You scored <span id="score-display" class="font-bold text-indigo-600 text-xl"></span></p>
+                        <button onclick="resetQuiz()" class="px-6 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition">Retake Quiz</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Javascript Logic -->
+    <script>
+        // --- Navigation Logic ---
+        function switchTab(tabId) {
+            // Hide all sections
+            document.querySelectorAll('.section-content').forEach(el => el.classList.add('hidden'));
+            // Show selected
+            document.getElementById('section-' + tabId).classList.remove('hidden');
+            
+            // Update Sidebar UI
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-50', 'text-indigo-700', 'font-semibold', 'border-indigo-600');
+                btn.classList.add('text-gray-600', 'border-transparent');
+            });
+            
+            const activeBtn = document.getElementById('nav-' + tabId);
+            if(activeBtn) {
+                activeBtn.classList.add('bg-indigo-50', 'text-indigo-700', 'font-semibold', 'border-indigo-600');
+                activeBtn.classList.remove('text-gray-600', 'border-transparent');
+            }
+
+            // Update Tip
+            const tips = {
+                preview: "Always preview on Mobile before hitting publish!",
+                domain: "It can take up to 48 hours for a new domain to propagate worldwide.",
+                maintain: "Check your site's contact forms monthly to ensure you aren't missing leads.",
+                quiz: "Review the previous sections if you get stuck!"
+            };
+            document.getElementById('dynamic-tip').innerText = tips[tabId];
+        }
+
+        // --- Preview Simulation Logic ---
+        function setPreviewMode(mode) {
+            const deskBtn = document.getElementById('btn-desktop');
+            const mobBtn = document.getElementById('btn-mobile');
+            const deskView = document.getElementById('view-desktop');
+            const mobView = document.getElementById('view-mobile');
+
+            if (mode === 'desktop') {
+                deskBtn.className = "px-4 py-1.5 rounded-md text-sm font-medium bg-blue-100 text-blue-700 transition";
+                mobBtn.className = "px-4 py-1.5 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700 transition";
+                deskView.classList.remove('hidden');
+                mobView.classList.add('hidden');
+            } else {
+                mobBtn.className = "px-4 py-1.5 rounded-md text-sm font-medium bg-blue-100 text-blue-700 transition";
+                deskBtn.className = "px-4 py-1.5 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700 transition";
+                mobView.classList.remove('hidden');
+                deskView.classList.add('hidden');
+            }
+        }
+
+        function fixMobileError() {
+            document.getElementById('mobile-error').classList.add('hidden');
+            document.getElementById('mobile-fixed').classList.remove('hidden');
+        }
+
+        // --- Domain Logic ---
+        function showDomainDetails(type) {
+            const container = document.getElementById('domain-details');
+            const title = document.getElementById('domain-detail-title');
+            const content = document.getElementById('domain-detail-content');
+
+            container.classList.remove('hidden');
+            
+            if (type === 'buy') {
+                title.innerText = "Buying a Domain from Wix";
+                content.innerHTML = `
+                    <ol class="list-decimal pl-5 space-y-2">
+                        <li>Go to <strong>Settings > Domains</strong> in your Dashboard.</li>
+                        <li>Click "Buy a new domain".</li>
+                        <li>Search for your name (e.g., <em>coolbakery.com</em>).</li>
+                        <li>If available, proceed to checkout.</li>
+                        <li><strong>Benefit:</strong> It connects automatically. No technical setup required.</li>
+                    </ol>
+                `;
+            } else {
+                title.innerText = "Connecting an External Domain";
+                content.innerHTML = `
+                    <ol class="list-decimal pl-5 space-y-2">
+                        <li>Go to <strong>Settings > Domains</strong> > "Connect a domain you already own".</li>
+                        <li>Select "Point to Wix Nameservers" (Recommended).</li>
+                        <li>Wix will give you two NS records (e.g., <em>ns1.wixdns.net</em>).</li>
+                        <li>Log in to your domain provider (e.g., GoDaddy).</li>
+                        <li>Replace their Nameservers with the Wix ones.</li>
+                        <li>Wait up to 48 hours for propagation.</li>
+                    </ol>
+                `;
+            }
+            
+            // Scroll to details
+            container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function closeDomainDetails() {
+            document.getElementById('domain-details').classList.add('hidden');
+        }
+
+        // --- Maintenance Game Logic ---
+        let health = 100;
+        let gameInterval;
+        let isGameRunning = false;
+
+        function startGame() {
+            document.getElementById('game-overlay').classList.add('hidden');
+            isGameRunning = true;
+            health = 100;
+            updateHealthUI();
+            
+            gameInterval = setInterval(() => {
+                if (!isGameRunning) return;
+                
+                // Decay health
+                health -= 1.5; 
+                
+                if (health <= 0) {
+                    health = 0;
+                    endGame();
+                }
+                updateHealthUI();
+            }, 500);
+        }
+
+        function performMaintenance(type) {
+            if (!isGameRunning) return;
+            
+            let boost = 0;
+            let message = "";
+
+            if (type === 'backup') { boost = 15; message = "Restored Backup!"; }
+            if (type === 'content') { boost = 10; message = "Content Fresh!"; }
+            if (type === 'security') { boost = 10; message = "Access Secured!"; }
+
+            health = Math.min(100, health + boost);
+            updateHealthUI();
+
+            // Simple visual feedback could go here
+            const status = document.getElementById('game-status');
+            status.innerText = message;
+            status.classList.add('text-green-400');
+            setTimeout(() => {
+                status.classList.remove('text-green-400');
+                status.innerText = "Status: Monitoring...";
+            }, 800);
+        }
+
+        function updateHealthUI() {
+            const bar = document.getElementById('health-bar');
+            const text = document.getElementById('health-percentage');
+            
+            bar.style.width = health + "%";
+            text.innerText = Math.floor(health) + "%";
+
+            if (health > 60) {
+                bar.classList.add('bg-green-500');
+                bar.classList.remove('bg-yellow-500', 'bg-red-500');
+            } else if (health > 30) {
+                bar.classList.add('bg-yellow-500');
+                bar.classList.remove('bg-green-500', 'bg-red-500');
+            } else {
+                bar.classList.add('bg-red-500');
+                bar.classList.remove('bg-green-500', 'bg-yellow-500');
+            }
+        }
+
+        function endGame() {
+            isGameRunning = false;
+            clearInterval(gameInterval);
+            const overlay = document.getElementById('game-overlay');
+            const title = document.getElementById('overlay-title');
+            
+            title.innerText = "Site Health Critical!";
+            title.className = "text-2xl font-bold mb-4 text-red-500";
+            
+            overlay.classList.remove('hidden');
+        }
+
+        // --- Quiz Logic ---
+        const questions = [
+            {
+                q: "Why should you check the Mobile View before publishing?",
+                options: ["Mobile phones have better colors", "Elements might overlap or be misaligned", "It costs less to publish mobile sites"],
+                correct: 1
+            },
+            {
+                q: "Which plan is required to connect a custom domain (e.g., .com)?",
+                options: ["Free Plan", "Any Premium Plan", "Only the VIP Plan"],
+                correct: 1
+            },
+            {
+                q: "What should you do if your site layout breaks after an update?",
+                options: ["Delete the site", "Contact your ISP", "Use 'Site History' to restore a previous version"],
+                correct: 2
+            },
+            {
+                q: "Do you need to manually update security plugins in Wix?",
+                options: ["Yes, every week", "No, Wix handles core security updates automatically", "Only if you pay extra"],
+                correct: 1
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = ""; // Clear existing
+
+            questions.forEach((item, index) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = "bg-white p-6 rounded-xl shadow border border-gray-200";
+                
+                let optionsHtml = "";
+                item.options.forEach((opt, optIndex) => {
+                    optionsHtml += `
+                        <label class="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition">
+                            <input type="radio" name="q${index}" value="${optIndex}" class="text-indigo-600 focus:ring-indigo-500">
+                            <span class="text-gray-700">${opt}</span>
+                        </label>
+                    `;
+                });
+
+                qDiv.innerHTML = `
+                    <h3 class="font-bold text-lg mb-3">${index + 1}. ${item.q}</h3>
+                    <div class="space-y-2">
+                        ${optionsHtml}
+                    </div>
+                `;
+                container.appendChild(qDiv);
+            });
+
+            // Add submit button
+            const submitBtn = document.createElement('button');
+            submitBtn.innerText = "Submit Answers";
+            submitBtn.className = "w-full py-3 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 transition mt-4";
+            submitBtn.onclick = checkScore;
+            container.appendChild(submitBtn);
+        }
+
+        function checkScore() {
+            let score = 0;
+            questions.forEach((item, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selected && parseInt(selected.value) === item.correct) {
+                    score++;
+                }
+            });
+
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('quiz-result').classList.remove('hidden');
+            document.getElementById('score-display').innerText = `${score} / ${questions.length}`;
+        }
+
+        function resetQuiz() {
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            // Clear selections
+            document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+        }
+
+        // Initialize
+        renderQuiz();
+
+    </script>
+</body>
+</html>
